@@ -11,23 +11,23 @@ use dep::std;
 struct game {
     player_1: Field,
     Player_2: Field,
-    move_1: u4,
-    move_2: u4,
+    move_1: u8,
+    move_2: u8,
     hashed_move_1: Field,
     hashed_move_2: Field,
-    winner: u4,
+    winner: u8,
     salt: u32,
 }
 
 impl game {
     fn new() -> Self {
         Self {           
-           player_1: 0 as u4,
-           player_2: 0 as u4,
+           player_1: 0 as u8,
+           player_2: 0 as u8,
            move_1: 0,
            move_2: 0,
-           hashed_move_1: 0 as u4,
-           hashed_move_2: 0 as u4,
+           hashed_move_1: 0 as u8,
+           hashed_move_2: 0 as u8,
            winner: 0, 
            salt: 0,
         }
@@ -50,21 +50,20 @@ impl game {
         unimplemented!;
     }
 
-    fn view_move(game_id: u32, move: u32){
+    fn view_move(game_id: u32, move: u8){
         unimplemented!;
     }
 
-    fn hash_move(self, from: Field, move: u4) -> _hashed_move: Field {
+    fn hash_move(self, from: Field, move: u8) -> _hashed_move: Field {
         let _hashed_move = std::hash::pedersen([self.salt as Field, move as Field]);
         let _hashed_move = std::hash::pedersen([_hashed_move, from]);
         _hashed_move
     }
 
-
-//0 = rock
-//1 = paper
-//2 = scizzors
-    fn check_move_winner(move_1: u32, move_2: u32) -> u32{
+    //0 = rock
+    //1 = paper
+    //2 = scizzors
+    fn check_move_winner(move_1: u8, move_2: u8) -> u8{
         if move_1 == move_2{
             0
         }
