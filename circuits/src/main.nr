@@ -1,33 +1,40 @@
-struct game_state{
+use dep::std;
+
+//PARAMS:
+//@param move_1: unhashed move   
+//@param move_2: unhashed move
+//@param hashed_move_1: hashed move that is field element
+//@param hashed_move_2: hashed move that is field element
+//@param winner: computed winner from computing both moves
+//@param salt: salt for computing hash
+
+struct GameState{
     move_1: u4,
     move_2: u4,
-    hashed_move_1: pub Field,
-    hashed_move_2: pub Field,
+    hashed_move_1: Field,
+    hashed_move_2: Field,
     winner: u4,
     salt: u32,
 }
 
-impl game_state {
-    fn new(game_id: u32) -> game_state {
-        game_state {            
-           //move_1: 0,
-           //move_2: 0,
-           //hashed_move_1: 0,
-           //hashed_move_2: 0,
-           //winner: 0, 
-           //salt: 0,
+impl GameState {
+    fn new() -> GameState {
+        GameState {            
+           move_1 = 0,
+           move_2 = 0,
+           hashed_move_1 = 0 as u4,
+           hashed_move_2 = 0 as u4,
+           winner = 0, 
+           salt = 0,
         }
     }
 
-    fn player_move(game_id: u32, hashed_move: Field){
-        let _hashed_move_1 = hashed_move_1
-        constrain hashed_move != 0
-        constrain hashed_move_1 != hashed_move
-        //if _player_1 == 0 {
-        //    let game_state.player_1 = sender
-        //    let game_state.hashed_move_1 = hashed_move
-        //} else {}
-
+    fn player_move(self, _hashed_move: Field){
+        constrain _hashed_move != 0
+        constrain self.hashed_move_1 != _hashed_move
+        //So basically we check that _hashed_move isn't zero
+        //then check that any previous move isn't same as _hashed_move
+         
     }
 
     fn view_game(game_id: u32) {
@@ -36,6 +43,12 @@ impl game_state {
 
     fn view_move(game_id: u32, move: u32){
         unimplemented!;
+    }
+
+    fn hash_move(self, player: Field) -> _hashed_move: Field {
+        let _hashed_move = std::hash::pedersen([self.salt as Field, self.move_1 as Field]);
+        let _hashed_move = std::hash::pedersen([_hashed_move, player]);
+        _hashed_move
     }
 
 
@@ -68,3 +81,7 @@ impl game_state {
     }
 }
 
+
+fn main() {
+    let game = GameState::new(0, 0, 0, 0, 0, 0);
+}
